@@ -12,7 +12,13 @@ class SupplierModel extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	public function get($limit = null, $offset = null) {
+	public function get($limit = null, $offset = null, $param = array()) {
+		if (isset($param['type_gudang'])) {
+			$this->db->join('detail_supplier_jenis', 'detail_supplier_jenis.id_supplier = supplier.id', 'inner');
+
+			$this->db->where('id_jenis', $param['type_gudang']);
+		}
+		
 		$data = $this->db->get('supplier', $limit, $offset)->result();
 
 		foreach ($data as &$value) {

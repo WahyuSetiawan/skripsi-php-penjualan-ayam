@@ -36,7 +36,7 @@ class Welcome extends MY_Controller {
 		$constraint = null;
 		$rule = null;
 		
-		foreach ($persediaan as $key => $value) {
+		/*foreach ($persediaan as $key => $value) {
 			$startDate = new \DateTime($value->tanggal_pembelian_terbaru, new \DateTimeZone($timezone));
 
 			if (strtotime($value->tanggal_pembelian_terbaru) > strtotime($value->tanggal_penjualan_terbaru)) {
@@ -78,7 +78,7 @@ class Welcome extends MY_Controller {
 			}
 
 			krsort($this->data['result']);
-		}
+		}*/
 
 		$this->blade->view('index', $this->data);
 	}

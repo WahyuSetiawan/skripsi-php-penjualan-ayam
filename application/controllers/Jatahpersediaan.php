@@ -16,25 +16,29 @@ class Jatahpersediaan extends MY_Controller {
 		$this->load->model(array('KandangModel', "DetailPersediaanModel", "PersediaanModel", "DetailPengeluaranGudangModel"));
 	}
 
-	public function index($id_kandang = "") {
+	public function index($id_kandang = null) {
 		if ($this->input->get("kandang") !== null) {
+			if ($id_kandang == "null" || $this->input->get('kandang') == "null") {
+				redirect("jatahpersediaan");
+			}
+
 			redirect(substr(current_url(), 0, (strpos(current_url(), "/index/") == 0) ? strlen(current_url()) : strpos(current_url(), "/index/")) . "/index/" . $this->input->get("kandang"));
 		}
 
 		$this->data['kandang'] = $this->KandangModel->get();
 		$this->data['persediaan'] = $this->PersediaanModel->get();
 
-		if (count($this->data['kandang']) > 0 && $id_kandang == 0) {
-			$id_kandang = $this->data["kandang"][0]->id;
-		}
+		/* if (count($this->data['kandang']) > 0 && $id_kandang == 0) {
+		  $id_kandang = $this->data["kandang"][0]->id;
+		  } */
 
 		if ($this->input->post("submit") !== null) {
 			$data = array(
 				"id_persediaan" => $this->input->post("persediaan"),
-				"id_kandang" => $id_kandang,
-				"type_durasi" => $this->input->post('type_durasi'),
-				"durasi" => $this->input->post('durasi'),
-				"type" => $this->input->post('type')
+				"id_kandang" => $this->input->post('kandang'),
+					/* "type_durasi" => $this->input->post('type_durasi'),
+					  "durasi" => $this->input->post('durasi'),
+					  "type" => $this->input->post('type') */
 			);
 
 			if ($this->input->post('id') !== null && $this->input->post('id') != "") {

@@ -109,6 +109,16 @@
 					<div class="col-5">
 						<div class="form-group">
 							<label>Tanggal Pembelian </label>
+							<select class="form-control" name="id_suppliers">
+								<?php foreach ($supplier as $value) { ?>
+									<option value="<?= $value->id ?>"><?= $value->nama ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label>Tanggal Pembelian </label>
 							<input type="text" class="form-control tanggal_transaksi" name="tanggal_transaksi">
 						</div>
 					</div>
@@ -293,7 +303,7 @@
 
 	$(document).on("click", ".btn-add-pengeluaran-gudang", function () {
 		var modalPengeluaran = $('#modal-pengeluaran');
-		
+
 		modalPengeluaran.find("input[name='id']").val("");
 		modalPengeluaran.find("input[name='tanggal_transaksi']").val(new Date().toJSON().slice(0, 19));
 		modalPengeluaran.find("input[name='jumlah']").val("1");

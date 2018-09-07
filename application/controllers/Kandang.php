@@ -22,7 +22,7 @@ class Kandang extends MY_Controller {
 		if (null !== ($this->input->post("submit"))) {
 			$data = [
 				'nama' => $this->input->post("nama"),
-				'maksimal_jumlah' => $this->input->post("maksimal_jumlah"),
+				//'maksimal_jumlah' => $this->input->post("maksimal_jumlah"),
 			];
 
 			$this->kandangmodel->set($data);
@@ -33,7 +33,7 @@ class Kandang extends MY_Controller {
 		if (null !== ($this->input->post("put"))) {
 			$data = [
 				'nama' => $this->input->post("nama"),
-				'maksimal_jumlah' => $this->input->post("maksimal_jumlah"),
+				//'maksimal_jumlah' => $this->input->post("maksimal_jumlah"),
 			];
 
 			$this->kandangmodel->put($data, $this->input->post('id'));

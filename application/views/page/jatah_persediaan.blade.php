@@ -3,18 +3,19 @@
 @section("content")
 
 <div class="row">
-	<h3 class="title-5 m-b-25">Jatah Persediaan</h3>
+	<h3 class="title-5 m-b-25">Jatah Pemakaian</h3>
 
 	<div class="col-lg-12  m-b-25">
 		<div class="card">
 			<div class="card-header">
-				Pilih Kandang
+				Tampilkan data berdasarkan
 			</div>
 			<div class="card-body">
 				<form action="" method="get">
 					<div class="form-group">
 						<label>Kandang : </label>
 						<select class="form-control" name="kandang">
+							<option value="null">Semua</option>
 							<?php foreach ($kandang as $value) { ?>
 								<option value="<?php echo $value->id ?>" <?= ($id_kandang == $value->id) ? "selected" : "" ?> ><?php echo $value->nama ?></option>
 							<?php } ?>
@@ -36,9 +37,9 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Kandang</th>
 						<th>Nama</th>
 						<th>Cara Pemakaian</th>
-						<th>Durasi</th>
 						<th style="text-align: center">Aksi</th>
 					</tr>
 				</thead>
@@ -46,11 +47,10 @@
 					<?php foreach ($data_persediaan as $key => $value) { ?>
 						<tr>
 							<td><?= $key + 1 ?></td>
+							<td><?= $value->nama_kandang ?></td>
 							<td><?= $value->nama ?></td>
 							<td><?= $value->cara_pemakaian ?></td>
-							<td><?= $value->durasi . " " . $value->type_durasi ?></td>
 							<td style="text-align: center">
-								<button type="button" class="btn btn-primary edit-persediaan" data-persediaan='<?= json_encode($value) ?>'><i class="fa fa-pen-square"></i></button>
 								<button type="button" class="btn btn-danger del-persediaan" data-persediaan='<?= json_encode($value) ?>'><i class="fa fa-trash"></i></button>
 							</td>
 						</tr>
@@ -85,6 +85,18 @@
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="id">
+
+					<div class="col-8">
+						<div class="form-group">
+							<label>Kandang</label>
+							<select name="kandang" class="form-control">
+								<?php foreach ($kandang as $value) { ?>
+									<option value="<?= $value->id ?>" data-data='<?= json_encode($value) ?>'><?= $value->nama ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+
 					<div class="col-8">
 						<div class="form-group">
 							<label>Persediaan</label>
@@ -93,36 +105,6 @@
 									<option value="<?= $value->id ?>" data-data='<?= json_encode($value) ?>'><?= $value->nama ?></option>
 								<?php } ?>
 							</select>
-						</div>
-					</div>
-
-					<div class="col-12">
-						<div class="form-group">
-							<label>Tipe Durasi</label>
-							<select name="type_durasi" class="form-control">
-								<option value="MONTHLY">Bulan</option>
-								<option value="WEEKLY">Minggu</option>
-								<option value="DAILY">Hari</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="form-group">
-							<label>Tipe</label>
-							<select name="type" class="form-control">
-								<option value="event-important">Merah</option>
-								<option value="event-warning">Kuning</option>
-								<option value="event-info">Biru</option>
-								<option value="event-inverse">Hitam</option>
-								<option value="event-special">Ungu</option>
-							</select>
-						</div>
-					</div>
-
-					<div class="col-3">
-						<div class="form-group">
-							<label>Maksimal Jumlah</label>
-							<input type="text" class="form-control" name="durasi" placeholder="Durasi pemakaian persediaan pada ayam">
 						</div>
 					</div>
 				</div>

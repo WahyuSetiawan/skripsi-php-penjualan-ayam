@@ -9,6 +9,7 @@
 		<button class="au-btn au-btn-icon au-btn--green au-btn--small btn-add-karyawan" type="button">
 			<i class="zmdi zmdi-plus"></i>Tambah Karyawan</button>
 	</div>
+
 	<div class="col-lg-12">
 		<div class="table-responsive table--no-card m-b-25">
 			<table class="table table-borderless table-striped table-earning">
@@ -17,10 +18,8 @@
 						<th>No</th>
 						<th>Username</th>
 						<th>Nama</th>
-						<th>Tempat dan Tanggal</th>
-						<th>Alamat</th>
 						<th>No Telepon</th>
-						<th>Gaji Karyawan</th>
+						<th>Tng jawab. Kandang</th>
 						<th style="text-align: center">Aksi</th>
 					</tr>
 				</thead>
@@ -30,10 +29,8 @@
 							<td><?= $key + 1 ?></td>
 							<td><?= $value->username ?></td>
 							<td><?= $value->nama ?></td>
-							<td><?= $value->tempat_lahir . ", " . $value->tanggal_lahir ?></td>
-							<td><?= $value->alamat ?></td>
 							<td><?= $value->no_hp ?></td>
-							<td><?= $value->gaji ?></td>
+							<td><?= $value->kandang->nama ?></td>
 							<td style="text-align: center">
 								<button type="button" class="btn btn-primary edit-karyawan" data-karyawan='<?= json_encode($value) ?>'><i class="fa fa-pen-square"></i></button>
 								<button type="button" class="btn btn-danger del-karyawan" data-karyawan='<?= json_encode($value) ?>'><i class="fa fa-trash"></i></button>
@@ -75,28 +72,20 @@
 							<input type="text" class="form-control" name="nama">
 						</div>
 					</div>
-					<div class="col-8">
-						<div class="form-group">
-							<label>Tanggal Lahir</label>
-							<input type="date" class="form-control" name="tanggal_lahir">
-						</div>
-					</div>
-					<div class="col-8">
-						<div class="form-group">
-							<label>Tempat Lahir</label>
-							<input type="text" class="form-control" name="tempat_lahir">
-						</div>
-					</div>
-					<div class="col-12">
-						<div class="form-group">
-							<label>Alamat Karyawan</label>
-							<textarea class="form-control" name="alamat"></textarea>
-						</div>
-					</div>
 					<div class="col-7">
 						<div class="form-group">
 							<label>No Telepon Karyawan</label>
 							<input type="text" class="form-control" name="telepon">
+						</div>
+					</div>
+					<div class="col-8">
+						<div class="form-group">
+							<label>Tanggung jawab terhadap kandang :</label>
+							<select class="form-control" name="kandang">
+								<?php foreach ($kandang as $value) { ?>
+									<option value="<?= $value->id ?>"><?= $value->nama ?></option>
+								<?php } ?>
+							</select>
 						</div>
 					</div>
 					<div class="col-7">
@@ -109,12 +98,6 @@
 						<div class="form-group">
 							<label>Password</label>
 							<input type="text" class="form-control" name="password">
-						</div>
-					</div>
-					<div class="col-7">
-						<div class="form-group">
-							<label>Gaji Karyawan</label>
-							<input type="text" class="form-control" name="gaji">
 						</div>
 					</div>
 				</div>
@@ -164,7 +147,6 @@
 		modelKaryawan.find("input[name='nama']").val("");
 		modelKaryawan.find("textarea[name='alamat']").html("");
 		modelKaryawan.find("input[name='telepon']").val("");
-		modelKaryawan.find("input[name='gaji']").val(0);
 		modelKaryawan.find("input[name='password']").val("");
 		modelKaryawan.find("input[name='password']").rules("add", {
 			required: true
@@ -181,12 +163,9 @@
 
 		modelKaryawan.find("input[name='id']").val(data.id);
 		modelKaryawan.find("input[name='nama']").val(data.nama);
-		modelKaryawan.find("input[name='tanggal_lahir']").val(data.tanggal_lahir);
-		modelKaryawan.find("input[name='tempat_lahir']").val(data.tempat_lahir);
-		modelKaryawan.find("textarea[name='alamat']").html(data.alamat);
 		modelKaryawan.find("input[name='telepon']").val(data.no_hp);
-		modelKaryawan.find("input[name='gaji']").val(data.gaji);
 		modelKaryawan.find("input[name='username']").val(data.username);
+		modelKaryawan.find("select[name='kandang']").val(data.id_kandang);
 		modelKaryawan.find("input[name='password']").val("");
 		modelKaryawan.find("input[name='password']").rules("remove", "required");
 		modelKaryawan.find("button[name='submit']").attr('name', 'put');

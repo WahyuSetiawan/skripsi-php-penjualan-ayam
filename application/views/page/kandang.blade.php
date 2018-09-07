@@ -16,7 +16,6 @@
 					<tr>
 						<th>No</th>
 						<th>Nama</th>
-						<th>Maksimal Ayam</th>
 						<th style="text-align: center">Aksi</th>
 					</tr>
 				</thead>
@@ -25,7 +24,6 @@
 						<tr>
 							<td><?= $key + 1 ?></td>
 							<td><?= $value->nama ?></td>
-							<td><?= $value->maksimal_jumlah ?></td>
 							<td style="text-align: center">
 								<button type="button" class="btn btn-primary edit-kandang" data-supplier='<?= json_encode($value) ?>'><i class="fa fa-pen-square"></i></button>
 								<button type="button" class="btn btn-danger del-kandang" data-supplier='<?= json_encode($value) ?>'><i class="fa fa-trash"></i></button>
@@ -69,12 +67,6 @@
 							<input type="text" class="form-control" name="nama">
 						</div>
 					</div>
-					<div class="col-3">
-						<div class="form-group">
-							<label>Maksimal Jumlah</label>
-							<input type="text" class="form-control" name="maksimal_jumlah">
-						</div>
-					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" name="submit">Simpan</button>
@@ -112,10 +104,6 @@
 @endsection
 
 @section('js')
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script> -->
-<script type="text/javascript" src="<?php echo base_url('js/jquery.validate.min.js') ?>"></script>
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.min.js"></script> -->
-<script type="text/javascript" src="<?php echo base_url('js/additional-methods.min.js') ?>"></script>
 
 <script>
 	$(document).on("click", ".btn-add-kandang", function () {
@@ -124,7 +112,6 @@
 		modal.find('form').find("input[name='id']").val("");
 		modal.find('form').find("input[name='nama']").val("");
 		modal.find('form').find("input[name='tanggal']").val("");
-		modal.find('form').find("input[name='maksimal_jumlah']").val("");
 		modal.find('form').find("button[name='submit']").attr('name', 'submit');
 
 		modal.modal('show');
@@ -137,7 +124,6 @@
 		modal.find('form').find("input[name='id']").val(data.id);
 		modal.find('form').find("input[name='nama']").val(data.nama);
 		modal.find('form').find("input[name='tanggal']").val(data.tanggal);
-		modal.find('form').find("input[name='maksimal_jumlah']").val(data.maksimal_jumlah);
 		modal.find('form').find("button[name='submit']").attr('name', 'put');
 
 		modal.modal('show');

@@ -13,7 +13,7 @@ class Laporan extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model(array('kandangmodel', 'KaryawanModel', 'PersediaanModel', 'ViewJumlahAyamModel', 'viewHistoryTransaksi'));
+		$this->load->model(array('kandangmodel', 'KaryawanModel', 'PersediaanModel', 'ViewJumlahAyamModel', 'viewHistoryTransaksi', 'KandangModel'));
 
 		$this->load->library('pdfgenerator');
 	}

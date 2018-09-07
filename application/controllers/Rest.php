@@ -25,7 +25,7 @@ class Rest extends REST_Controller {
 
 		$data['kerugian'] = $this->Dashboard->kerugianAyamGet(7);
 		$data['pembelian'] = $this->Dashboard->pembelianAyamGet(7);
-		$data['penjualan'] = $this->Dashboard->penjualanAyamGet(7);
+		$data['penjualan'] = null;
 
 		$this->response($data, 200);
 	}

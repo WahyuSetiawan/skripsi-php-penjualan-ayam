@@ -26,9 +26,8 @@
 						<label>Ket : </label>
 						<select class="form-control" name="ket">
 							<option value="semua">Semua</option>
-							<option value="rugi">Kerugian</option>
-							<option value="beli">Pembelian</option>
-							<option value="jual">Penjualan</option>
+							<option value="pemasukan">Pemasukan</option>
+							<option value="pengeluaran">Pengeluaran</option>
 						</select>
 					</div>
 					<div class="form-group">
@@ -65,8 +64,6 @@
 		</div> 
 	</div>
 
-
-
 	<div class="col-lg-12  m-b-25">
 		<a href="<?php echo base_url("laporan/transaksi/null/print?" . $_SERVER['QUERY_STRING']) ?>" class="au-btn au-btn-icon au-btn--green au-btn--small btn-add-vaksin" type="button">
 			<i class="zmdi zmdi-plus"></i>Print Data Transaksi</a>
@@ -81,8 +78,6 @@
 						<th>Tanggal Transaksi</th>
 						<th>Nama</th>
 						<th>Maksimal Ayam</th>
-						<th>Nama Supplier</th>
-						<th>Keterangan</th>
 						<th>Ket</th>
 					</tr>
 				</thead>
@@ -93,9 +88,7 @@
 							<td><?= $value->tanggal_transaksi ?></td>
 							<td><?= $value->nama_kandang ?></td>
 							<td><?= $value->jumlah_ayam ?></td>
-							<td><?= $value->nama_supplier ?></td>
-							<td><?= $value->keterangan ?></td>
-							<td><span class="<?= ($value->ket == "beli") ? "status--process" : "status--denied" ?>"><?= $value->ket ?></span></td>
+							<td><span class="<?= ($value->ket == "pemasukan") ? "status--process" : "status--denied" ?>"><?= $value->ket ?></span></td>
 						</tr>
 					<?php } ?>
 				</tbody>

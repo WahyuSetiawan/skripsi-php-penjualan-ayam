@@ -22,17 +22,53 @@ class Gudang extends MY_Controller {
 					"ViewHistoryTransaksiGudang",
 					"TypeGudangModel",
 					"DetailPembelianGudang",
-					"DetailPengeluaranGudangModel"
+					"DetailPengeluaranGudangModel",
+					"SupplierModel"
 				)
 		);
 	}
 
 	public function index() {
+		if (null !== ($this->input->post("submit"))) {
+			$data = [
+				'nama' => $this->input->post("nama"),
+				'keterangan' => $this->input->post("keterangan"),
+				'cara_pemakaian' => $this->input->post("cara_pemakaian"),
+				'type_gudang' => $this->input->post('type_gudang')
+			];
+
+			$this->PersediaanModel->set($data);
+
+			redirect(current_url());
+		}
+
+		if (null !== ($this->input->post("put"))) {
+			$data = [
+				'nama' => $this->input->post("nama"),
+				'keterangan' => $this->input->post("keterangan"),
+				'cara_pemakaian' => $this->input->post("cara_pemakaian"),
+				'type_gudang' => $this->input->post('type_gudang')
+			];
+
+			$this->PersediaanModel->put($data, $this->input->post('id'));
+
+			redirect(current_url());
+		}
+
+		if (null !== ($this->input->post("del"))) {
+
+			$this->PersediaanModel->remove($this->input->post('id'));
+
+			redirect(current_url());
+		}
+
+
 		$this->data['gudang'] = $this->ViewStokGudangVaksin->get();
 		$this->data['jumlah_ayam'] = $this->ViewJumlahAyamModel->get();
 		$this->data['supplier'] = $this->suppliermodel->get();
+		$this->data['type_gudang'] = $this->TypeGudangModel->get();
 
-		$this->blade->view("page.gudangvaksin", $this->data);
+		$this->blade->view("page.gudang_persediaan", $this->data);
 	}
 
 	public function Transaksi($id = false, $page = 0) {
@@ -73,20 +109,20 @@ class Gudang extends MY_Controller {
 
 			redirect(current_url());
 		}
-		
-		if ($this->input->post('del-beli') !== null){
+
+		if ($this->input->post('del-beli') !== null) {
 			$this->DetailPembelianGudang->del($this->input->post('id'));
-			
-			redirect(current_url());
-		}
-		
-		if ($this->input->post('del-jual') !== null){
-			$this->DetailPengeluaranGudangModel->del($this->input->post('id'));
-			
+
 			redirect(current_url());
 		}
 
-		$pagination = $this->getConfigPagination(site_url('gudangvaksin/transaksi/'), $this->ViewHistoryTransaksiGudang->countAll(), $per_page);
+		if ($this->input->post('del-jual') !== null) {
+			$this->DetailPengeluaranGudangModel->del($this->input->post('id'));
+
+			redirect(current_url());
+		}
+
+		$pagination = $this->getConfigPagination(current_url(), $this->ViewHistoryTransaksiGudang->countAll(), $per_page);
 		$this->data['pagination'] = $this->pagination($pagination);
 
 		$this->data['gudang'] = $this->ViewHistoryTransaksiGudang->get(null, null, $id);
@@ -95,8 +131,9 @@ class Gudang extends MY_Controller {
 		$this->data['type_gudang'] = $this->TypeGudangModel->get();
 		$this->data['persediaan'] = $this->PersediaanModel->get();
 		$this->data['kandang'] = $this->KandangModel->get();
+		$this->data['supplier'] = $this->SupplierModel->get(null, null, array('type_gudang' => $this->data['data']->type_gudang));
 
-		$this->blade->view('page.gudangvaksintransaksi', $this->data);
+		$this->blade->view('page.gudang_persediaan_transaksi', $this->data);
 	}
 
 }

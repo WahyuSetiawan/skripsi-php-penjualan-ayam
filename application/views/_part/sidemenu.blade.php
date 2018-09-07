@@ -18,8 +18,8 @@
 						<i class="fas fa-building"></i>Kandang</a>
 				</li>
 				<li>
-					<a href="<?= base_url('persediaan') ?>">
-						<i class="fas fa-bug"></i>Data Persediaan</a>
+					<a href="<?= base_url("gudang") ?>">
+						<i class="fas fa-list-ol"></i>Pemakaian</a>
 				</li>
 				<li>
 					<a href="<?= base_url('typegudang') ?>">
@@ -38,10 +38,7 @@
 			<a class="js-arrow" href="#">
 				<i class="fas fa-list-alt"></i>Data Kandang</a>
 			<ul class="list-unstyled navbar__sub-list js-sub-list">
-				<li>
-					<a href="<?= base_url("gudang") ?>">
-						<i class="fas fa-list-ol"></i>Gudang</a>
-				</li>
+
 				<li>
 					<a href="<?= base_url("stokayam") ?>">
 						<i class="fas fa-list-ol"></i>Stok Ayam</a>
@@ -49,10 +46,6 @@
 				<li>
 					<a href="<?= base_url("jatahpersediaan") ?>">
 						<i class="fas fa-list-ol"></i>Jatah Persediaan</a>
-				</li>
-				<li>
-					<a href="<?= base_url("jadwalpersediaan") ?>">
-						<i class="fas fa-list-ol"></i>Jadwal Persediaan</a>
 				</li>
 			</ul>
 		</li>

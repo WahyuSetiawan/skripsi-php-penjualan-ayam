@@ -54,13 +54,10 @@
 				</div>
 				<div class="card-footer">
 					<button class="btn btn-success btn-add-pembelian-ayam" type="button">
-						<i class="zmdi zmdi-plus"></i> Beli Ayam</button>
-
-					<button class="btn btn-info btn-add-penjualan-ayam" type="button">
-						<i class="zmdi zmdi-plus"></i> Jual Ayam</button>
+						<i class="zmdi zmdi-plus"></i> Pemasukan Ayam</button>
 
 					<button class="btn btn-danger btn-add-kerugian-ayam" type="button">
-						<i class="zmdi zmdi-plus"></i> Kerugian Ayam</button>
+						<i class="zmdi zmdi-plus"></i> Pengeluaran Ayam</button>
 				</div>
 			</div>
 		</div>
@@ -73,7 +70,6 @@
 						<th>No</th>
 						<th>Tanggal</th>
 						<th>Jumlah Ayam</th>
-						<th>Perubahan Jumlah</th>
 						<th>Ket..</th>
 						<th style="text-align: center">Aksi</th>
 					</tr>
@@ -84,8 +80,7 @@
 							<td><?= $key + 1 ?></td>
 							<td><?= $value->tanggal_transaksi ?></td>
 							<td><?= $value->jumlah_ayam ?></td>
-							<td><?= $value->perubahan_jumlah ?></td>
-							<td><span class="<?= ($value->ket == "beli") ? "status--process" : "status--denied" ?>"><?= $value->ket ?></span></td>
+							<td><span class="<?= ($value->ket == "pemasukan") ? "status--process" : "status--denied" ?>"><?= $value->ket ?></span></td>
 							<td style="text-align: center">
 								<button type="button" class="btn btn-success pembelian-ayam" data-transaksi='<?= json_encode($value) ?>'><i class="fa fa-plus"></i> Ubah</button>
 								<button type="button" class="btn btn-danger hapus-transaksi-ayam" data-transaksi='<?= json_encode($value) ?>'><i class="fa fa-minus"></i> Hapus</button>
@@ -129,12 +124,6 @@
 						<div class="form-group">
 							<label>Tanggal Pembelian </label>
 							<input type="datetime" class="form-control tanggal_transaksi" name="tanggal">
-						</div>
-					</div>
-					<div class="col-3">
-						<div class="form-group">
-							<label>Umur ayam (bulan) </label>
-							<input type="number" class="form-control" name="umur" value="0">
 						</div>
 					</div>
 					<div class="col-3">
@@ -271,17 +260,16 @@
 @section('js')
 
 <script>
-	$(function () {
-		$(".tanggal_transaksi").datepicker();
-		$(".tanggal_transaksi").datepicker("option", "showAnim", "slideDown");
-		$(".tanggal_transaksi").datepicker("option", "dateFormat", "yy-mm-dd");
-		//$('#form-kerugian-gudang').find("input[name='tanggal']").datetimepicker();
-	});
-	
+	$(".tanggal_transaksi").datepicker();
+	$(".tanggal_transaksi").datepicker("option", "showAnim", "slideDown");
+	$(".tanggal_transaksi").datepicker("option", "dateFormat", "yy-mm-dd");
+	$(".tanggal_transaksi").datepicker('setDate', new Date());
+
 	$(document).on("click", ".btn-add-kerugian-ayam", function () {
 		var modalKerugian = $('#modal-kerugian');
 
-		modalKerugian.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
+		//modalKerugian.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
+
 		modalKerugian.find("input[name='keterangan']").val("");
 		modalKerugian.find("input[name='jumlah']").val(1);
 		modalKerugian.find("button[type='submit']").attr('name', 'submit-kerugian');
@@ -292,7 +280,8 @@
 	$(document).on("click", ".btn-add-penjualan-ayam", function () {
 		var modalPenjualan = $('#modal-penjualan');
 
-		modalPenjualan.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
+		//modalPenjualan.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
+
 		modalPenjualan.find("select[name='supplier']").val("");
 		modalPenjualan.find("input[name='umur']").val("1");
 		modalPenjualan.find("input[name='jumlah']").val("1");
@@ -304,7 +293,8 @@
 	$(document).on("click", ".btn-add-pembelian-ayam", function () {
 		var modalPembelian = $('#modal-pembelian');
 
-		modalPembelian.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
+		//modalPembelian.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
+
 		modalPembelian.find("select[name='supplier']").val("");
 		modalPembelian.find("input[name='umur']").val("1");
 		modalPembelian.find("input[name='jumlah']").val("1");

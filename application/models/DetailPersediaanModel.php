@@ -23,7 +23,7 @@ class DetailPersediaanModel extends CI_Model {
 	}
 
 	public function get($limit = null, $offset = null, $id_kandang = null) {
-		$this->strukturData("persediaan.*, detail_persediaan.id, detail_persediaan.durasi, detail_persediaan.type_durasi, detail_persediaan.type, persediaan.id as id_persediaan", $id_kandang);
+		$this->strukturData("persediaan.*, detail_persediaan.id, detail_persediaan.durasi, detail_persediaan.type_durasi, detail_persediaan.type, persediaan.id as id_persediaan, kandang.nama as nama_kandang", $id_kandang);
 
 		return $this->db->get('detail_persediaan', $limit, $offset)->result();
 	}
@@ -38,6 +38,9 @@ class DetailPersediaanModel extends CI_Model {
 		$this->db->select($select);
 		
 		$this->db->join('persediaan', 'persediaan.id = detail_persediaan.id_persediaan', 'inner');
+		$this->db->join('kandang', 'kandang.id = detail_persediaan.id_kandang', 'inner');
+		
+		$this->db->order_by("kandang.id", "asc");
 
 		if ($id_kandang != null) {
 			$this->db->where('id_kandang', $id_kandang);

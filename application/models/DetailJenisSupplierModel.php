@@ -64,7 +64,7 @@ class DetailJenisSupplierModel extends CI_Model {
 		$this->db->where($where);
 
 		$this->db->join('supplier', 'supplier.id = detail_supplier_jenis.id_supplier', 'inner');
-		$this->db->join('jenis_supplier', 'jenis_supplier.id = detail_supplier_jenis.id_jenis', 'inner');
+		$this->db->join('type_gudang', 'type_gudang.id = detail_supplier_jenis.id_jenis', 'inner');
 	}
 
 }

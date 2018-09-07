@@ -18,10 +18,8 @@
 					<tr>
 						<th>No</th>
 						<th>Nama</th>
-						<th>Tempat dan Tanggal</th>
-						<th>Alamat</th>
 						<th>No Telepon</th>
-						<th>Gaji</th>
+						<th>Tanggung Jawab Kandang</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -29,10 +27,8 @@
 						<tr>
 							<td><?= $key + 1 ?></td>
 							<td><?= $value->nama ?></td>
-							<td><?= $value->tempat_lahir . ", " . $value->tanggal_lahir ?></td>
-							<td><?= $value->alamat ?></td>
 							<td><?= $value->no_hp ?></td>
-							<td><?= $value->gaji ?></td>
+							<td><?= $value->kandang->nama ?></td>
 						</tr>
 					<?php } ?>
 

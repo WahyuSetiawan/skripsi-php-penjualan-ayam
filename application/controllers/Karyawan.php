@@ -13,18 +13,15 @@ class Karyawan extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model(array('suppliermodel', 'KaryawanModel'));
+		$this->load->model(array('suppliermodel', 'KaryawanModel', "KandangModel"));
 	}
 
 	public function index() {
 		if (null !== ($this->input->post("submit"))) {
 			$data = [
 				'nama' => $this->input->post("nama"),
-				'tanggal_lahir' => $this->input->post("tanggal_lahir"),
-				'tempat_lahir' => $this->input->post("tempat_lahir"),
-				'alamat' => $this->input->post("alamat"),
+				'id_kandang' => $this->input->post("kandang"),
 				'no_hp' => $this->input->post("telepon"),
-				'gaji' => $this->input->post("gaji"),
 				"username" => $this->input->post("username"),
 				"password" => ($this->input->post("password")),
 				"hint" => $this->input->post("password")
@@ -38,9 +35,7 @@ class Karyawan extends MY_Controller {
 		if (null !== ($this->input->post("put"))) {
 			$data = [
 				'nama' => $this->input->post("nama"),
-				'tanggal_lahir' => $this->input->post("tanggal_lahir"),
-				'tempat_lahir' => $this->input->post("tempat_lahir"),
-				'alamat' => $this->input->post("alamat"),
+				'id_kandang' => $this->input->post("kandang"),
 				'no_hp' => $this->input->post("telepon"),
 				'gaji' => $this->input->post("gaji"),
 				"username" => $this->input->post("username"),
@@ -71,6 +66,7 @@ class Karyawan extends MY_Controller {
 		$this->data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		$this->data['per_page'] = $per_page;
 		$this->data['karyawan'] = $this->KaryawanModel->get($per_page, $this->data['page']);
+		$this->data['kandang'] = $this->KandangModel->get();
 
 		$this->blade->view("page.karyawan", $this->data);
 	}

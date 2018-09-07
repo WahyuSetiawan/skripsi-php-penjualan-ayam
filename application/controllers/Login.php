@@ -21,7 +21,6 @@ class Login extends CI_Controller {
 			redirect('');
 		}
 
-
 		if (null !== $this->input->post("login")) {
 			if ($this->input->post('jenis') == "admin") {
 				$admin = $this->AdminModel->login($this->input->post('username'), $this->input->post('password'));
@@ -35,7 +34,7 @@ class Login extends CI_Controller {
 				}
 			} else {
 				$admin = $this->KaryawanModel->login($this->input->post('username'), $this->input->post('password'));
-
+				
 				if ($admin) {
 					$data = array(
 						'login' => true,

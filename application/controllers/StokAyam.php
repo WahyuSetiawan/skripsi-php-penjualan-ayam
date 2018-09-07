@@ -26,10 +26,8 @@ class StokAyam extends MY_Controller {
 	public function Transaksi($idkandang = false, $page = 0) {
 		if ($this->input->post('submit') !== null) {
 			$data_insert = array(
-				'id_vendor' => $this->input->post('supplier'),
 				'id_kandang' => $idkandang,
 				'tanggal' => $this->input->post('tanggal'),
-				'umur_awal' => $this->input->post('umur'),
 				'jumlah_ayam' => $this->input->post('jumlah'),
 			);
 
@@ -65,10 +63,8 @@ class StokAyam extends MY_Controller {
 
 		if ($this->input->post('put-beli') !== null) {
 			$data_insert = array(
-				'id_vendor' => $this->input->post('supplier'),
 				'id_kandang' => $idkandang,
 				'tanggal' => $this->input->post('tanggal'),
-				'umur_awal' => $this->input->post('umur'),
 				'jumlah_ayam' => $this->input->post('jumlah'),
 			);
 
@@ -102,19 +98,13 @@ class StokAyam extends MY_Controller {
 			redirect(current_url());
 		}
 
-		/* if ($this->input->post('del') !== null) {
-		  $this->DetailPembelian->del($this->input->post('id'));
-
-		  redirect(current_url());
-		  } */
-
-		if ($this->input->post('del-rugi') !== null) {
+		if ($this->input->post('del-pengeluaran') !== null) {
 			$this->KerugianModel->del($this->input->post('id'));
 
 			redirect(current_url());
 		}
 
-		if ($this->input->post('del-beli') !== null) {
+		if ($this->input->post('del-pemasukan') !== null) {
 			$this->DetailPembelian->del($this->input->post('id'));
 
 			redirect(current_url());

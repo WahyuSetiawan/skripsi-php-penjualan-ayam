@@ -11,7 +11,7 @@ class Supplier extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model(array('suppliermodel', 'JenisSupplierModel', 'DetailJenisSupplierModel', "TypeGudangModel"));
+		$this->load->model(array('suppliermodel', 'DetailJenisSupplierModel', "TypeGudangModel"));
 	}
 
 	public function index() {

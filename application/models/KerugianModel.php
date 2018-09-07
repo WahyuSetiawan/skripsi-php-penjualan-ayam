@@ -7,6 +7,7 @@
  */
 
 class KerugianModel extends CI_Model {
+	public $table = "detail_pengeluaran_ayam";
 
 	public function __construct() {
 		parent::__construct();
@@ -17,17 +18,17 @@ class KerugianModel extends CI_Model {
 	}
 
 	public function set($data) {
-		return $this->db->insert('kerugian', $data);
+		return $this->db->insert($this->table, $data);
 	}
 
 	public function put($data, $id) {
 		$this->db->where('id', $id);
-		return $this->db->update('kerugian', $data);
+		return $this->db->update($this->table, $data);
 	}
 
 	public function del($id) {
 		$this->db->where('id', $id);
-		return $this->db->delete('kerugian');
+		return $this->db->delete($this->table);
 	}
 
 }

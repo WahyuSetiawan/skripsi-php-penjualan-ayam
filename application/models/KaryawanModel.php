@@ -13,7 +13,13 @@ class KaryawanModel extends CI_Model {
 	}
 
 	public function get() {
-		return $this->db->get('karyawan')->result();
+		$data = $this->db->get('karyawan')->result();
+
+		foreach ($data as &$value) {
+			$value->kandang = $this->KandangModel->get(null, null, $value->id_kandang)[0];
+		}
+
+		return $data;
 	}
 
 	public function set($data) {
@@ -23,7 +29,6 @@ class KaryawanModel extends CI_Model {
 
 		return $this->db->insert('karyawan', $data);
 	}
-	
 
 	public function put($data, $id = false, $username = false) {
 
@@ -38,7 +43,7 @@ class KaryawanModel extends CI_Model {
 		if ($username != FALSE) {
 			$this->db->where('username', $username);
 		}
-		
+
 		return $this->db->update('karyawan', $data);
 	}
 

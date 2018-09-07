@@ -18,9 +18,6 @@
 						<th>Nama</th>
 						<th>Keterangan</th>
 						<th>Cara Pemakaian</th>
-						<th>Durasi</th>
-						<th>Waktu</th>
-						<th>Type</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -30,9 +27,6 @@
 							<td><?= $value->nama ?></td>
 							<td><?= $value->keterangan ?></td>
 							<td><?= $value->cara_pemakaian ?></td>
-							<td><?= $value->type_durasi ?></td>
-							<td><?= $value->durasi ?></td>
-							<td><?= $value->type ?></td>
 						</tr>
 					<?php } ?>
 				</tbody>

@@ -16,9 +16,13 @@ class KandangModel extends CI_Model {
 		$this->db->insert('kandang', $data);
 	}
 
-	public function get($limit = null, $offset = null) {
+	public function get($limit = null, $offset = null, $id_kandang = null) {
 		if ($limit != null && $offset != null) {
 			$this->db->limit($limit, $offset);
+		}
+
+		if ($id_kandang != null) {
+			$this->db->where('id', $id_kandang);
 		}
 
 		return $this->db->get('kandang')->result();

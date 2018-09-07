@@ -26,6 +26,7 @@
 				</div>
 			</div>
 		</div>
+		<!--
 		<div class="col-sm-6 col-lg-3">
 			<div class="overview-item overview-item--c2">
 				<div class="overview__inner">
@@ -44,6 +45,7 @@
 				</div>
 			</div>
 		</div>
+		-->
 		<div class="col-sm-6 col-lg-3">
 			<div class="overview-item overview-item--c3">
 				<div class="overview__inner">
@@ -62,6 +64,7 @@
 				</div>
 			</div>
 		</div>
+		<!--
 		<div class="col-sm-6 col-lg-3">
 			<div class="overview-item overview-item--c4">
 				<div class="overview__inner">
@@ -80,8 +83,10 @@
 				</div>
 			</div>
 		</div>
+		-->
 	</div>
 	<div class="row">
+		<!--
 		<div class="col-lg-6">
 			<div class="au-card recent-report">
 				<div class="au-card-inner">
@@ -116,6 +121,7 @@
 				</div>
 			</div>
 		</div>
+		-->
 		<div class="col-lg-6">
 			<div class="au-card chart-percent-card">
 				<div class="au-card-inner">
@@ -144,74 +150,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-12">
-			<h2 class="title-1 m-b-25">Riwayat Transaksi Terakhir</h2>
-			<div class="table-responsive table--no-card m-b-40">
-				<table class="table table-borderless table-striped table-earning">
-					<thead>
-						<tr>
-							<th>Tanggal</th>
-							<th>Type</th>
-							<th>Kandang</th>
-							<th class="text-right">Nominal</th>
-							<th class="text-right">Jumlah Ayam</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php foreach ($transaksi as $value) { ?>
-							<tr>
-								<td><?= $value->tanggal_transaksi ?></td>
-								<td>
-									<?php
-									switch ($value->ket) {
-										case "beli":
-											?>
-											<span class="dot dot--green"></span>
-											<?php
-											break;
-										case "jual":
-											?>
-											<span class="dot dot--blue"></span>
-											<?php
-											break;
-										case "rugi":
-											?>
-											<span class="dot dot--red"></span>
-											<?php
-											break;
-									}
-									?>
-									<?= $value->ket ?>
-								</td>
-								<td><?= $value->nama_kandang ?></td>
-								<td class="text-right">Rp. <?= number_format($value->nominal, 2) ?></td>
-								<td class="text-right"><?php
-									switch ($value->ket) {
-										case "beli":
-											?>
-											+
-											<?php
-											break;
-										case "jual":
-											?>
-											-
-											<?php
-											break;
-										case "rugi":
-											?>
-											-
-											<?php
-											break;
-									}
-									?><?= $value->jumlah_ayam ?></td>
-							</tr>
-						<?php } ?>
-					</tbody>
-				</table>
 			</div>
 		</div>
 	</div>
