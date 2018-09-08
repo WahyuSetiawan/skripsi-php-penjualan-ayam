@@ -23,6 +23,8 @@ class KaryawanModel extends CI_Model {
 	}
 
 	public function set($data) {
+		$this->db->set('id_karyawan', $this->newId());
+		
 		if (isset($data['password'])) {
 			$data['password'] = crypt($data['password'], '$1$somethin$');
 		}
@@ -37,7 +39,7 @@ class KaryawanModel extends CI_Model {
 		}
 
 		if ($id != FALSE) {
-			$this->db->where('id', $id);
+			$this->db->where('id_karyawan', $id);
 		}
 
 		if ($username != FALSE) {
@@ -48,7 +50,7 @@ class KaryawanModel extends CI_Model {
 	}
 
 	public function remove($id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_karyawan', $id);
 		return $this->db->delete('karyawan');
 	}
 
@@ -67,6 +69,12 @@ class KaryawanModel extends CI_Model {
 		}
 
 		return false;
+	}
+
+	public function newId() {
+		$this->db->select('function_id_karyawan() as id');
+		$data = $this->db->get()->row();
+		return $data->id;
 	}
 
 }

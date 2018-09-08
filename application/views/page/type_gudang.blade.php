@@ -15,6 +15,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Kode</th>
 						<th>Keterangan</th>
 						<th style="text-align: center">Aksi</th>
 					</tr>
@@ -23,6 +24,7 @@
 					<?php foreach ($type_gudang as $key => $value) { ?>
 						<tr>
 							<td><?= $key + 1 ?></td>
+							<td><?= $value->id_type_gudang?></td>
 							<td><?= $value->keterangan ?></td>
 							<td style="text-align: center">
 								<button type="button" class="btn btn-primary edit-type_gudang" data-supplier='<?= json_encode($value) ?>'><i class="fa fa-pen-square"></i></button>
@@ -120,7 +122,7 @@
 		var data = $(this).data('supplier');
 		var modal = $('#modalKandang');
 
-		modal.find('form').find("input[name='id']").val(data.id);
+		modal.find('form').find("input[name='id']").val(data.id_type_gudang);
 		modal.find('form').find("input[name='keterangan']").val(data.keterangan);
 		modal.find('form').find("button[name='submit']").attr('name', 'put');
 
@@ -132,8 +134,8 @@
 
 		var modal = $("#modal-del-supplier");
 
-		modal.find('form').find("input[name='id']").val(data.id);
-		modal.find('form').find("span[class='id']").html(data.id);
+		modal.find('form').find("input[name='id']").val(data.id_type_gudang);
+		modal.find('form').find("span[class='id']").html(data.id_type_gudang);
 		modal.find('form').find("span[class='nama']").html(data.nama);
 
 		modal.modal("show");

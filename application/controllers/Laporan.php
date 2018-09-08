@@ -13,7 +13,7 @@ class Laporan extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model(array('kandangmodel', 'KaryawanModel', 'PersediaanModel', 'ViewJumlahAyamModel', 'viewHistoryTransaksi', 'KandangModel'));
+		$this->load->model(array('kandangmodel', 'KaryawanModel', 'PersediaanModel', 'ViewJumlahAyamModel', 'viewHistoryTransaksi', 'KandangModel', 'ViewTransaksiAll'));
 
 		$this->load->library('pdfgenerator');
 	}
@@ -156,6 +156,64 @@ class Laporan extends MY_Controller {
 		$this->data['kandang'] = $this->kandangmodel->get();
 
 		$this->blade->view("page.laporan.page_transaksi", $this->data);
+	}
+
+	public function gudang($page = null, $print = null, $idkandang = null) {
+		$per_page = 3;
+		$params = array();
+		$where = array();
+
+		$this->data['title'] = "Laporan";
+
+		if ($this->input->get("ket") !== null) {
+			if ($this->input->get("ket") !== "semua") {
+				$params['ket'] = $this->input->get("ket");
+			}
+		}
+
+		if ($this->input->get("id_kandang") !== null) {
+			$params['id_kandang'] = $this->input->get("id_kandang");
+			$this->data['data_ayam'] = $this->ViewJumlahAyamModel->once($params['id_kandang']);
+			$where['id_detail_pemasukan_ayam'] = $this->data['data_ayam']->id_pembelian_terbaru;
+		}
+
+		if ($this->input->get("tahun") !== null) {
+			$params['year(tanggal_transaksi)'] = $this->input->get("tahun");
+		}
+
+		if ($this->input->get("bulan") !== null) {
+			$params['month(tanggal_transaksi)'] = $this->input->get("bulan");
+		}
+
+		if ($print != null) {
+			if (!isset($params['id_kandang'])) {
+				$this->session->set_flashdata('kesalahan', "Kandang Harus dipilih terlebih dahulu !");
+
+				redirect('laporan/gudang');
+			}
+
+			$this->data['jumlah_ayam'] = $this->viewHistoryTransaksi->get($params['id_kandang'], null, null, $params);
+			$this->data['data_ayam'] = $this->ViewJumlahAyamModel->once($params['id_kandang']);
+			$this->data['transaksi'] = $this->ViewTransaksiAll->get(null, null, array('id_detail_pemasukan_ayam' => $this->data['data_ayam']->id_pembelian_terbaru));
+
+			$this->data['title'] = $this->data['title'] . "<br>" . $this->data['data_ayam']->nama_kandang;
+
+			if (isset($this->data['data_ayam'])) {
+				$laporan = $this->blade->render("page.laporan.laporan_gudang", $this->data);
+				echo $laporan;
+			}
+
+
+			//	$this->pdfgenerator->generate($laporan, "laporantransaksi.pdf");
+
+			return;
+		}
+
+		$this->data['tahun_transaksi'] = $this->viewHistoryTransaksi->getTahun();
+		$this->data['jumlah_ayam'] = $this->ViewTransaksiAll->get(null, null, $where);
+		$this->data['kandang'] = $this->kandangmodel->get();
+
+		$this->blade->view("page.laporan.page_gudang", $this->data);
 	}
 
 }

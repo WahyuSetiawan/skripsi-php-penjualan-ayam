@@ -78,6 +78,7 @@ class Gudang extends MY_Controller {
 			$data = array(
 				"id_persediaan" => $this->input->post('id_persediaan'),
 				"tanggal_transaksi" => $this->input->post('tanggal_transaksi'),
+				"id_pemasukan_ayam" => $this->input->post('id_pemasukan_ayam'),
 				"jumlah" => $this->input->post('jumlah'),
 				"nominal" => $this->input->post('nominal')
 			);
@@ -93,6 +94,7 @@ class Gudang extends MY_Controller {
 
 		if ($this->input->post('submit-pengeluaran') !== null) {
 			$data = array(
+				"id_pemasukan_ayam" => $this->input->post('id_pemasukan_ayam'),
 				"id_persediaan" => $this->input->post('id_persediaan'),
 				'tanggal_transaksi' => $this->input->post('tanggal_transaksi'),
 				'id_kandang' => $this->input->post('id_kandang'),
@@ -103,7 +105,6 @@ class Gudang extends MY_Controller {
 			if ($this->input->post('id') != "") {
 				$this->DetailPengeluaranGudangModel->put($data, $this->input->post('id'));
 			} else {
-				echo "disini";
 				$this->DetailPengeluaranGudangModel->set($data);
 			}
 
@@ -128,12 +129,17 @@ class Gudang extends MY_Controller {
 		$this->data['gudang'] = $this->ViewHistoryTransaksiGudang->get(null, null, $id);
 		$this->data['data'] = $this->ViewStokGudangVaksin->once($id);
 
-		$this->data['type_gudang'] = $this->TypeGudangModel->get();
-		$this->data['persediaan'] = $this->PersediaanModel->get();
-		$this->data['kandang'] = $this->KandangModel->get();
-		$this->data['supplier'] = $this->SupplierModel->get(null, null, array('type_gudang' => $this->data['data']->type_gudang));
+		if (isset($this->data['data'])) {
+			$this->data['bibit'] = $this->ViewJumlahAyamModel->get(FALSE, null, null, array("id_pembelian_terbaru != " => null));
+			$this->data['type_gudang'] = $this->TypeGudangModel->get();
+			$this->data['persediaan'] = $this->PersediaanModel->get();
+			$this->data['kandang'] = $this->KandangModel->get();
+			$this->data['supplier'] = $this->SupplierModel->get(null, null, array('type_gudang' => $this->data['data']->type_gudang));
 
-		$this->blade->view('page.gudang_persediaan_transaksi', $this->data);
+			$this->blade->view('page.gudang_persediaan_transaksi', $this->data);
+		} else {
+			echo "404 Cant Access Data";
+		}
 	}
 
 }

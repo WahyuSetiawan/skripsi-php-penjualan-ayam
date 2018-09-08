@@ -23,13 +23,19 @@ class DetailPersediaanModel extends CI_Model {
 	}
 
 	public function get($limit = null, $offset = null, $id_kandang = null) {
-		$this->strukturData("persediaan.*, detail_persediaan.id, detail_persediaan.durasi, detail_persediaan.type_durasi, detail_persediaan.type, persediaan.id as id_persediaan, kandang.nama as nama_kandang", $id_kandang);
+		$this->strukturData("persediaan.*, "
+				. "detail_persediaan.id_detail_persediaan, "
+				. "detail_persediaan.durasi, "
+				. "detail_persediaan.type_durasi, "
+				. "detail_persediaan.type, "
+				. "persediaan.id_persediaan, "
+				. "kandang.nama as nama_kandang", $id_kandang);
 
 		return $this->db->get('detail_persediaan', $limit, $offset)->result();
 	}
 
 	public function remove($id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_detail_persediaan', $id);
 
 		return $this->db->delete('detail_persediaan');
 	}
@@ -37,13 +43,13 @@ class DetailPersediaanModel extends CI_Model {
 	public function strukturData($select = "*", $id_kandang = null) {
 		$this->db->select($select);
 		
-		$this->db->join('persediaan', 'persediaan.id = detail_persediaan.id_persediaan', 'inner');
-		$this->db->join('kandang', 'kandang.id = detail_persediaan.id_kandang', 'inner');
+		$this->db->join('persediaan', 'persediaan.id_persediaan = detail_persediaan.id_persediaan', 'inner');
+		$this->db->join('kandang', 'kandang.id_kandang = detail_persediaan.id_kandang', 'inner');
 		
-		$this->db->order_by("kandang.id", "asc");
+		$this->db->order_by("kandang.id_kandang", "asc");
 
 		if ($id_kandang != null) {
-			$this->db->where('id_kandang', $id_kandang);
+			$this->db->where('kandang.id_kandang', $id_kandang);
 		}
 	}
 

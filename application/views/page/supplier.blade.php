@@ -15,6 +15,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Kode Supplier</th>
 						<th>Nama</th>
 						<th>Alamat</th>
 						<th>No Telepon</th>
@@ -25,6 +26,7 @@
 					<?php foreach ($supplier as $key => $value) { ?>
 						<tr>
 							<td><?= ($per_page * $page) + $key + 1 ?></td>
+							<td><?= $value->id_supplier?></td>
 							<td><?= $value->nama ?></td>
 							<td><?= $value->alamat ?></td>
 							<td><?= $value->notelepon ?></td>
@@ -87,7 +89,7 @@
 						<div class="form-group">
 							<label>Jenis Supplier</label><br>
 							<?php foreach ($jenis_supplier as $value) { ?>
-								<input type="checkbox" name="jenis_supplier[]" value="<?= $value->id ?>">  <?= $value->keterangan ?>
+								<input type="checkbox" name="jenis_supplier[]" value="<?= $value->id_type_gudang ?>">  <?= $value->keterangan ?>
 							<?php } ?>
 						</div>
 					</div>
@@ -113,7 +115,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<input type="hidden" class="id">
+					<input type="hidden" name="id" class="id">
 					Anda yakin menghapus data <span class="id"></span> dengan nama <span class="nama"></span> ?
 				</div>
 				<div class="modal-footer">
@@ -128,10 +130,6 @@
 @endsection
 
 @section('js')
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script> -->
-<script type="text/javascript" src="<?php echo base_url('js/jquery.validate.min.js') ?>"></script>
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.min.js"></script> -->
-<script type="text/javascript" src="<?php echo base_url('js/additional-methods.min.js') ?>"></script>
 
 <script>
 	$(document).on("click", ".btn-add-supplier", function () {
@@ -152,7 +150,7 @@
 
 		var modalSupplier = $('#modalSupplier');
 
-		modalSupplier.find("input[name='id']").val(data.id);
+		modalSupplier.find("input[name='id']").val(data.id_supplier);
 		modalSupplier.find("input[name='nama']").val(data.nama);
 		modalSupplier.find("textarea[name='alamat']").html(data.alamat);
 		modalSupplier.find("input[name='telepon']").val(data.notelepon);
@@ -172,8 +170,8 @@
 
 		var modal = $("#modal-del-supplier");
 
-		modal.find(".id").val(data.id);
-		modal.find("span[class='id']").html(data.id);
+		modal.find(".id").val(data.id_supplier);
+		modal.find("span[class='id']").html(data.id_supplier);
 		modal.find("span[class='nama']").html(data.nama);
 
 		modal.modal("show");

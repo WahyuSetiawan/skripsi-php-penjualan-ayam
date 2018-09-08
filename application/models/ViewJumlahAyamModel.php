@@ -14,7 +14,7 @@ class ViewJumlahAyamModel extends CI_Model {
 		parent::__construct();
 	}
 
-	public function get($id_kandang = false, $limit = null, $offset = null) {
+	public function get($id_kandang = false, $limit = null, $offset = null, $where = array()) {
 		if ($limit >= null && $offset >= null) {
 			$this->db->limit($limit, $offset);
 		}
@@ -23,7 +23,11 @@ class ViewJumlahAyamModel extends CI_Model {
 			$this->db->where('id_kandang', $id_kandang);
 		}
 
-		return $this->db->get('view_jumlah_ayam_kandang')->result();
+		$this->db->where($where);
+
+		$data = $this->db->get('view_jumlah_ayam_kandang')->result();
+
+		return $data;
 	}
 
 	public function countAll() {

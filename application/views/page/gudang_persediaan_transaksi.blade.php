@@ -3,7 +3,7 @@
 @section("content")
 
 <div class="row">
-	<h3 class="title-5 m-b-25">Detail Transaksi Keluar Masuk Gudang (Gudang : <?= $data->id ?>)</h3>
+	<h3 class="title-5 m-b-25">Detail Transaksi Keluar Masuk Gudang (Gudang : <?= $data->id_persediaan ?>)</h3>
 
 	<div class="col-lg-12">
 		<div class="col-lg-12  m-b-25">
@@ -20,7 +20,7 @@
 							Id  
 						</div>
 						<div class="col-md-3">
-							: <?= $data->id ?>
+							: <?= $data->id_persediaan ?>
 						</div>
 						<div class="col-md-3">
 							Jumlah  Sekarang 
@@ -61,6 +61,8 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Kode</th>
+						<th>Bibit</th>
 						<th>Tanggal</th>
 						<th>Jumlah</th>
 						<th>Nominal</th>
@@ -72,6 +74,8 @@
 					<?php foreach ($gudang as $key => $value) { ?>
 						<tr>
 							<td><?= $key + 1 ?></td>
+							<td><?= $value->id ?></td>
+							<td><?= $value->id_pemasukan_ayam ?></td>
 							<td><?= $value->tanggal_transaksi ?></td>
 							<td><?= $value->jumlah ?></td>
 							<td><?= $value->nominal ?></td>
@@ -98,20 +102,30 @@
 		<form action="" method="post" id="form-pembelian-gudang">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title" id="mediumModalLabel">Pembelian  (Gudang : <?= $data->id ?>)</h3>
+					<h3 class="modal-title" id="mediumModalLabel">Pembelian  (Gudang : <?= $data->id_persediaan ?>)</h3>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="id">
-					<input type="hidden" name="id_persediaan" value="<?= $data->id ?>"/>
+					<input type="hidden" name="id_persediaan" value="<?= $data->id_persediaan ?>"/>
 					<div class="col-5">
 						<div class="form-group">
-							<label>Tanggal Pembelian </label>
+							<label>Supplier </label>
 							<select class="form-control" name="id_suppliers">
 								<?php foreach ($supplier as $value) { ?>
-									<option value="<?= $value->id ?>"><?= $value->nama ?></option>
+									<option value="<?= $value->id_supplier ?>"><?= $value->nama ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
+					<div class="col-5">
+						<div class="form-group">
+							<label>Bibit </label>
+							<select class="form-control" name="id_pemasukan_ayam">
+								<?php foreach ($bibit as $value) { ?>
+									<option value="<?= $value->id_pembelian_terbaru ?>"><?= $value->nama_kandang . " (" . $value->id_pembelian_terbaru . ")" ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -164,34 +178,34 @@
 				</div>
 				<div class="modal-body">
 					<input type="hidden" name="id">
-					<input type="hidden" name="id_persediaan" value="<?= $data->id ?>"/>
+					<input type="hidden" name="id_persediaan" value="<?= $data->id_persediaan ?>"/>
 
-					<div class="col-12">
+					<div class="col-7">
 						<div class="form-group">
 							<label>Tanggal Transaksi</label>
 							<input type="text" class="form-control tanggal_transaksi" name="tanggal_transaksi" >
 						</div>
 					</div>
 
-					<div class="col-12">
+					<div class="col-5">
 						<div class="form-group">
-							<label>Kandang</label>
-							<select class="form-control" name="id_kandang">
-								<?php foreach ($kandang as $value) { ?>
-									<option value="<?= $value->id ?>"><?= $value->nama ?></option>
+							<label>Bibit </label>
+							<select class="form-control" name="id_pemasukan_ayam">
+								<?php foreach ($bibit as $value) { ?>
+									<option value="<?= $value->id_pembelian_terbaru ?>"><?= $value->nama_kandang . " (" . $value->id_pembelian_terbaru . ")" ?></option>
 								<?php } ?>
 							</select>
 						</div>
 					</div>
 
-					<div class="col-12">
+					<div class="col-5">
 						<div class="form-group">
 							<label>Jumlah</label>
 							<input type="number" class="form-control" name="jumlah">
 						</div>
 					</div>
 
-					<div class="col-12">
+					<div class="col-5">
 						<div class="form-group">
 							<label>Keterangan</label>
 							<input type="text" class="form-control" name="keterangan">
@@ -283,13 +297,6 @@
 
 
 <script>
-	$(function () {
-		$(".tanggal_transaksi").datepicker();
-		$(".tanggal_transaksi").datepicker("option", "showAnim", "slideDown");
-		$(".tanggal_transaksi").datepicker("option", "dateFormat", "yy-mm-dd");
-		$('#form-kerugian-gudang').find("input[name='tanggal']").datetimepicker();
-	});
-
 	$(document).on("click", ".btn-add-kerugian-gudang", function () {
 		var modalKerugian = $('#modal-kerugian');
 

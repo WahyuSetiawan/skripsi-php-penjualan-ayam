@@ -12,8 +12,8 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Kode Kandang</th>
 						<th>Nama Kandang</th>
-						<th>Maksimal Jumlah</th>
 						<th>Jumlah Ayam</th>
 						<th style="text-align: center">Aksi</th>
 					</tr>
@@ -22,8 +22,8 @@
 					<?php foreach ($jumlah_ayam as $key => $value) { ?>
 						<tr>
 							<td><?= $key + 1 ?></td>
+							<td><?= $value->id_kandang?></td>
 							<td><?= $value->nama_kandang ?></td>
-							<td><?= $value->maksimal_jumlah ?></td>
 							<td><?= $value->jumlah_ayam ?></td>
 							<td style="text-align: center">
 								<button type="button" class="btn btn-success pembelian-ayam" data-kandang='<?= json_encode($value) ?>'><i class="fa fa-plus"></i> Transaksi</button>
@@ -113,11 +113,6 @@
 @endsection
 
 @section('js')
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script> -->
-<script type="text/javascript" src="<?php echo base_url('js/jquery.validate.min.js') ?>"></script>
-<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/additional-methods.min.js"></script> -->
-<script type="text/javascript" src="<?php echo base_url('js/additional-methods.min.js') ?>"></script>
-
 <script>
 	$(document).on("click", ".btn-add-supplier", function () {
 		var modalPembelian = $('#modal-pembelian');

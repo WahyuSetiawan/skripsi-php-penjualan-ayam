@@ -54,6 +54,12 @@
 				<a class="js-arrow" href="#">
 					<i class="fas fa-copy"></i>Laporan</a>
 				<ul class="list-unstyled navbar__sub-list js-sub-list">
+						<li>
+						<a href="<?= base_url("laporan/gudang") ?>">
+							<i class="fas fa-paperclip"></i>Laporan Gudang
+						</a>
+					</li>
+					<?php /*
 					<li>
 						<a href="<?= base_url("laporan/kandang") ?>">
 							<i class="fas fa-paperclip"></i>Laporan Kandang</a>
@@ -75,6 +81,9 @@
 							<i class="fas fa-paperclip"></i>Laporan Transaksi
 						</a>
 					</li>
+					 * 
+					 * 
+					 */?>
 				</ul>
 			</li>
 		<?php } ?>

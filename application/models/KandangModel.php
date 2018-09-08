@@ -13,6 +13,7 @@ class KandangModel extends CI_Model {
 	}
 
 	public function set($data) {
+		$this->db->set('id_kandang', $this->newId());
 		$this->db->insert('kandang', $data);
 	}
 
@@ -22,24 +23,30 @@ class KandangModel extends CI_Model {
 		}
 
 		if ($id_kandang != null) {
-			$this->db->where('id', $id_kandang);
+			$this->db->where('id_kandang', $id_kandang);
 		}
 
 		return $this->db->get('kandang')->result();
 	}
 
 	public function put($data, $id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_kandang', $id);
 		$this->db->update('kandang', $data);
 	}
 
 	public function remove($id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_kandang', $id);
 		$this->db->delete('kandang');
 	}
 
 	public function countAll() {
 		return $this->db->count_all('kandang');
+	}
+
+	public function newId() {
+		$this->db->select('function_id_kandang() as id');
+		$data = $this->db->get()->row();
+		return $data->id;
 	}
 
 }

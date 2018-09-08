@@ -25,18 +25,25 @@ class TypeGudangModel extends CI_Model {
 	}
 
 	public function set($data) {
+		$this->db->set("id_type_gudang", $this->newId());
 		$this->db->insert('type_gudang', $data);
 		return $this->db->last_query();
 	}
 
 	public function put($data, $id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_type_gudang', $id);
 		return $this->db->update('type_gudang', $data);
 	}
 
 	public function del($id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_type_gudang', $id);
 		return $this->db->delete('type_gudang');
+	}
+
+	public function newId() {
+		$this->db->select('function_id_type_gudang() as id');
+		$data = $this->db->get()->row();
+		return $data->id;
 	}
 
 }

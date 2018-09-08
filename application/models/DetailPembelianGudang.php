@@ -18,17 +18,18 @@ class DetailPembelianGudang extends CI_Model {
 	}
 
 	public function set($data) {
+		$this->db->set('id_detail_pembelian_gudang', 'function_id_detail_pembelian_gudang()', false);
 		$this->db->insert('detail_pembelian_gudang', $data);
 		return $this->db->insert_id();
 	}
 
 	public function put($data, $id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_detail_pembelian_gudang', $id);
 		return $this->db->update('detail_pembelian_gudang', $data);
 	}
 
 	public function del($id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_detail_pembelian_gudang', $id);
 		return $this->db->delete('detail_pembelian_gudang');
 	}
 

@@ -17,6 +17,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Kode</th>
 						<th>Nama</th>
 						<th>Type Persediaan</th>
 						<th>Keterangan</th>
@@ -30,6 +31,7 @@
 					<?php foreach ($gudang as $key => $value) { ?>
 						<tr>
 							<td><?= $key + 1 ?></td>
+							<td><?= $value->id_persediaan?></td>
 							<td><?= $value->nama ?></td>
 							<td><?= $value->ket_type_gudang ?></td>
 							<td><?= $value->keterangan ?></td>
@@ -90,7 +92,7 @@
 							<label>Tipe Gudang</label>
 							<select name="type_gudang" class="form-control">
 								<?php foreach ($type_gudang as $key => $value) { ?>
-									<option value="<?= $value->id ?>"><?= $value->keterangan ?></option>
+									<option value="<?= $value->id_type_gudang ?>"><?= $value->keterangan ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -150,7 +152,7 @@
 		var data = $(this).data('vaksin');
 		var modal = $('#modalPersediaan');
 
-		modal.find("input[name='id']").val(data.id);
+		modal.find("input[name='id']").val(data.id_persediaan);
 		modal.find("input[name='nama']").val(data.nama);
 		modal.find("input[name='keterangan']").val(data.keterangan);
 		modal.find("textarea[name='cara_pemakaian']").html(data.cara_pemakaian);
@@ -165,8 +167,8 @@
 
 		var modal = $("#modal-del-vaksin");
 
-		modal.find('form').find("input[name='id']").val(data.id);
-		modal.find('form').find("span[class='id']").html(data.id);
+		modal.find('form').find("input[name='id']").val(data.id_persediaan);
+		modal.find('form').find("span[class='id']").html(data.id_persediaan);
 		modal.find('form').find("span[class='nama']").html(data.nama);
 
 		modal.modal("show");
@@ -239,13 +241,13 @@
 	$(document).on("click", ".pembelian-gudang", function () {
 		var val = $(this).data("vaksin");
 
-		document.location.href = "gudang/transaksi/" + val.id;
+		document.location.href = "gudang/transaksi/" + val.id_persediaan;
 	});
 
 	$(document).on("click", '.penjualan-gudang', function () {
 		var val = $(this).data("vaksin");
 
-		document.location.href = "gudang/transaksi/" + val.id;
+		document.location.href = "gudang/transaksi/" + val.id_persediaan;
 	});
 
 	$(document).ready(function () {

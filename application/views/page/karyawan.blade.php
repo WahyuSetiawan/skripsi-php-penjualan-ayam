@@ -16,6 +16,7 @@
 				<thead>
 					<tr>
 						<th>No</th>
+						<th>Kode</th>
 						<th>Username</th>
 						<th>Nama</th>
 						<th>No Telepon</th>
@@ -27,10 +28,11 @@
 					<?php foreach ($karyawan as $key => $value) { ?>
 						<tr>
 							<td><?= $key + 1 ?></td>
-							<td><?= $value->username ?></td>
+							<td><?= $value->id_karyawan?></td>
+							<td><?= $value->username ?></td>s
 							<td><?= $value->nama ?></td>
 							<td><?= $value->no_hp ?></td>
-							<td><?= $value->kandang->nama ?></td>
+							<td><?= $value->id_kandang . " - " . $value->kandang->nama ?></td>
 							<td style="text-align: center">
 								<button type="button" class="btn btn-primary edit-karyawan" data-karyawan='<?= json_encode($value) ?>'><i class="fa fa-pen-square"></i></button>
 								<button type="button" class="btn btn-danger del-karyawan" data-karyawan='<?= json_encode($value) ?>'><i class="fa fa-trash"></i></button>
@@ -83,7 +85,7 @@
 							<label>Tanggung jawab terhadap kandang :</label>
 							<select class="form-control" name="kandang">
 								<?php foreach ($kandang as $value) { ?>
-									<option value="<?= $value->id ?>"><?= $value->nama ?></option>
+									<option value="<?= $value->id_kandang ?>"><?= $value->nama ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -161,7 +163,7 @@
 
 		var modelKaryawan = $('#modelKaryawan');
 
-		modelKaryawan.find("input[name='id']").val(data.id);
+		modelKaryawan.find("input[name='id']").val(data.id_karyawan);
 		modelKaryawan.find("input[name='nama']").val(data.nama);
 		modelKaryawan.find("input[name='telepon']").val(data.no_hp);
 		modelKaryawan.find("input[name='username']").val(data.username);
@@ -178,8 +180,8 @@
 
 		var modal = $("#modal-del-karyawan");
 
-		modal.find("input[name='id']").val(data.id);
-		modal.find("span[class='id']").html(data.id);
+		modal.find("input[name='id']").val(data.id_karyawan);
+		modal.find("span[class='id']").html(data.id_karyawan);
 		modal.find("span[class='nama']").html(data.nama);
 
 		modal.modal("show");

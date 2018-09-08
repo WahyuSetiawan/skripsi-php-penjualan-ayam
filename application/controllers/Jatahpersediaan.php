@@ -36,9 +36,6 @@ class Jatahpersediaan extends MY_Controller {
 			$data = array(
 				"id_persediaan" => $this->input->post("persediaan"),
 				"id_kandang" => $this->input->post('kandang'),
-					/* "type_durasi" => $this->input->post('type_durasi'),
-					  "durasi" => $this->input->post('durasi'),
-					  "type" => $this->input->post('type') */
 			);
 
 			if ($this->input->post('id') !== null && $this->input->post('id') != "") {

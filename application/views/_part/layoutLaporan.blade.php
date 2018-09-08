@@ -57,9 +57,6 @@
 			<div>
 				<h2>@yield('title')</h2>	
 			</div>
-			<div class="date">
-				Tanggal: <?php echo date("Y-m-d")?>
-			</div>
 		</div>
 
 		@yield("content")

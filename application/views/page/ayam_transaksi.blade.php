@@ -31,24 +31,16 @@
 					</div>
 					<div class="row">
 						<div class="col-md-3">
-							Maksimal Jumlah Ayam 
+							Tanggal Pembelian Ayam 
 						</div>
 						<div class="col-md-3">
-							: <?= $kandang->maksimal_jumlah ?>
+							: <strong><?= $kandang->tanggal_pembelian_terbaru ?></strong>
 						</div>
 						<div class="col-md-3">
 							Keterangan
 						</div>
 						<div class="col-md-3">
 							: <?= $kandang->keterangan ?>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-3">
-							Tanggal Pembelian Ayam 
-						</div>
-						<div class="col-md-3">
-							: <strong><?= $kandang->tanggal_pembelian_terbaru ?></strong>
 						</div>
 					</div>
 				</div>
@@ -115,7 +107,7 @@
 							<label>Nama Supplier</label>
 							<select class="form-control" name="supplier">
 								<?php foreach ($supplier as $key => $value) { ?>
-									<option value="<?= $value->id ?>"><?= $value->nama . " (" . $value->notelepon . ")" ?></option>
+									<option value="<?= $value->id_supplier ?>"><?= $value->nama . " (" . $value->notelepon . ")" ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -207,6 +199,17 @@
 							<input type="text" class="form-control tanggal_transaksi" name="tanggal" >
 						</div>
 					</div>
+					
+					<div class="col-6">
+						<div class="form-group">
+							<label>Bibit:</label>
+							<select class="form-control" name="id_pemasukan_ayam">
+								<?php foreach ($pemasukan_ayam as $key => $value) { ?>
+									<option value="<?= $value->id_detail_pemasukan_ayam ?>"><?= $value->id_detail_pemasukan_ayam . " (" . $value->id_kandang . ")" ?></option>
+								<?php } ?>
+							</select>
+						</div>
+					</div>
 
 					<div class="col-12">
 						<div class="form-group">
@@ -268,8 +271,6 @@
 	$(document).on("click", ".btn-add-kerugian-ayam", function () {
 		var modalKerugian = $('#modal-kerugian');
 
-		//modalKerugian.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
-
 		modalKerugian.find("input[name='keterangan']").val("");
 		modalKerugian.find("input[name='jumlah']").val(1);
 		modalKerugian.find("button[type='submit']").attr('name', 'submit-kerugian');
@@ -277,23 +278,8 @@
 		modalKerugian.modal('show');
 	});
 
-	$(document).on("click", ".btn-add-penjualan-ayam", function () {
-		var modalPenjualan = $('#modal-penjualan');
-
-		//modalPenjualan.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
-
-		modalPenjualan.find("select[name='supplier']").val("");
-		modalPenjualan.find("input[name='umur']").val("1");
-		modalPenjualan.find("input[name='jumlah']").val("1");
-		modalPenjualan.find("button[type='submit']").attr('name', 'submit-penjualan');
-
-		modalPenjualan.modal("show");
-	});
-
 	$(document).on("click", ".btn-add-pembelian-ayam", function () {
 		var modalPembelian = $('#modal-pembelian');
-
-		//modalPembelian.find("input[name='tanggal']").val(new Date().toJSON().slice(0, 19));
 
 		modalPembelian.find("select[name='supplier']").val("");
 		modalPembelian.find("input[name='umur']").val("1");
@@ -307,10 +293,11 @@
 		var data = $(this).data('transaksi');
 
 		switch (data.ket) {
-			case "rugi":
+			case "pengeluaran":
 				var modalKerugian = $('#modal-kerugian');
 
 				modalKerugian.find("input[name='id']").val(data.id);
+				modalKerugian.find("input[name='id_pemasukan_ayam']").val(data.id_pemasukan_ayam);
 				modalKerugian.find("input[name='tanggal']").val(data.tanggal_transaksi);
 				modalKerugian.find("input[name='keterangan']").val(data.keterangan);
 				modalKerugian.find("input[name='jumlah']").val(data.jumlah_ayam);
@@ -318,17 +305,7 @@
 
 				modalKerugian.modal('show');
 				break;
-			case "jual":
-				var modalPenjualan = $('#modal-penjualan');
-
-				modalPenjualan.find("input[name='id']").val(data.id);
-				modalPenjualan.find("input[name='tanggal']").val(data.tanggal_transaksi);
-				modalPenjualan.find("input[name='jumlah']").val(data.jumlah_ayam);
-				modalPenjualan.find("button[type='submit']").attr('name', 'put-jual');
-
-				modalPenjualan.modal("show");
-				break;
-			case "beli":
+			case "pemasukan":
 				var modalPembelian = $('#modal-pembelian');
 
 				modalPembelian.find("input[name='id']").val(data.id);

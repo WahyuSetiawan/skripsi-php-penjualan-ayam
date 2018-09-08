@@ -37,7 +37,6 @@ class Karyawan extends MY_Controller {
 				'nama' => $this->input->post("nama"),
 				'id_kandang' => $this->input->post("kandang"),
 				'no_hp' => $this->input->post("telepon"),
-				'gaji' => $this->input->post("gaji"),
 				"username" => $this->input->post("username"),
 				"hint" => $this->input->post("password")
 			];

@@ -13,7 +13,7 @@ class StokAyam extends MY_Controller {
 	public function __construct() {
 		parent::__construct();
 
-		$this->load->model(array('ViewJumlahAyamModel', 'suppliermodel', 'DetailPembelian', 'viewHistoryTransaksi', 'DetailPenjualan', 'KerugianModel', "DetailJenisSupplierModel"));
+		$this->load->model(array('ViewJumlahAyamModel', 'DetailPembelian', 'suppliermodel', 'DetailPembelian', 'viewHistoryTransaksi', 'KerugianModel', "DetailJenisSupplierModel"));
 	}
 
 	public function index() {
@@ -36,22 +36,10 @@ class StokAyam extends MY_Controller {
 			redirect(current_url());
 		}
 
-		if ($this->input->post("submit-penjualan") !== null) {
-			$data_insert = array(
-				'id_kandang' => $idkandang,
-				'tanggal' => $this->input->post('tanggal'),
-				'jumlah_ayam' => $this->input->post('jumlah'),
-			);
-
-			$this->DetailPenjualan->set($data_insert);
-
-			redirect(current_url());
-		}
-
 		if ($this->input->post('submit-kerugian') !== null) {
 			$data = array(
-				'id_kandang' => $idkandang,
 				'tanggal' => $this->input->post('tanggal'),
+				'id_pemasukan_ayam' => $this->input->post('id_pemasukan_ayam'),
 				'keterangan' => $this->input->post('keterangan'),
 				'jumlah_ayam' => $this->input->post('jumlah')
 			);
@@ -73,22 +61,10 @@ class StokAyam extends MY_Controller {
 			redirect(current_url());
 		}
 
-		if ($this->input->post('put-jual') !== null) {
-			$data_insert = array(
-				'id_kandang' => $idkandang,
-				'tanggal' => $this->input->post('tanggal'),
-				'jumlah_ayam' => $this->input->post('jumlah'),
-			);
-
-			$this->DetailPenjualan->put($data_insert, $this->input->post('id'));
-
-			redirect(current_url());
-		}
-
 		if ($this->input->post('put-rugi') !== null) {
 			$data = array(
-				'id_kandang' => $idkandang,
 				'tanggal' => $this->input->post('tanggal'),
+				'id_pemasukan_ayam' => $this->input->post('id_pemasukan_ayam'),
 				'keterangan' => $this->input->post('keterangan'),
 				'jumlah_ayam' => $this->input->post('jumlah')
 			);
@@ -109,13 +85,7 @@ class StokAyam extends MY_Controller {
 
 			redirect(current_url());
 		}
-
-		if ($this->input->post('del-jual') !== null) {
-			$this->DetailPenjualan->del($this->input->post('id'));
-
-			redirect(current_url());
-		}
-
+		
 		$per_page = 1;
 
 		$pagination = $this->getConfigPagination(site_url(current_url()), $this->viewHistoryTransaksi->countAll($idkandang), $per_page);
@@ -124,6 +94,7 @@ class StokAyam extends MY_Controller {
 		$this->data['jumlah_ayam'] = $this->viewHistoryTransaksi->get($idkandang);
 		$this->data['supplier'] = $this->suppliermodel->get();
 		$this->data['kandang'] = $this->ViewJumlahAyamModel->once($idkandang);
+		$this->data['pemasukan_ayam'] = $this->DetailPembelian->get();
 
 		$this->blade->view('page.ayam_transaksi', $this->data);
 	}

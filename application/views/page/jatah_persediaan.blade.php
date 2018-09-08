@@ -17,7 +17,7 @@
 						<select class="form-control" name="kandang">
 							<option value="null">Semua</option>
 							<?php foreach ($kandang as $value) { ?>
-								<option value="<?php echo $value->id ?>" <?= ($id_kandang == $value->id) ? "selected" : "" ?> ><?php echo $value->nama ?></option>
+								<option value="<?php echo $value->id_kandang ?>" <?= ($id_kandang == $value->id_kandang) ? "selected" : "" ?> ><?php echo $value->nama ?></option>
 							<?php } ?>
 						</select>
 					</div>
@@ -91,7 +91,7 @@
 							<label>Kandang</label>
 							<select name="kandang" class="form-control">
 								<?php foreach ($kandang as $value) { ?>
-									<option value="<?= $value->id ?>" data-data='<?= json_encode($value) ?>'><?= $value->nama ?></option>
+									<option value="<?= $value->id_kandang ?>" data-data='<?= json_encode($value) ?>'><?= $value->nama ?></option>
 								<?php } ?>
 							</select>
 						</div>
@@ -102,7 +102,7 @@
 							<label>Persediaan</label>
 							<select name="persediaan" class="form-control">
 								<?php foreach ($persediaan as $key => $value) { ?> 
-									<option value="<?= $value->id ?>" data-data='<?= json_encode($value) ?>'><?= $value->nama ?></option>
+									<option value="<?= $value->id_persediaan ?>" data-data='<?= json_encode($value) ?>'><?= $value->nama ?></option>
 								<?php } ?>
 							</select>
 						</div>

@@ -18,12 +18,13 @@ class DetailJenisSupplierModel extends CI_Model {
 	}
 
 	public function set($data) {
+		$this->db->set('id_detail_supplier_jenis', "function_id_detail_supplier_jenis()", false);
 		$this->db->insert('detail_supplier_jenis', $data);
 		return $this->db->insert_id();
 	}
 
 	public function put($data, $id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_detail_supplier_jenis', $id);
 		return $this->db->update('detail_supplier_jenis', $data);
 	}
 
@@ -63,8 +64,8 @@ class DetailJenisSupplierModel extends CI_Model {
 		}
 		$this->db->where($where);
 
-		$this->db->join('supplier', 'supplier.id = detail_supplier_jenis.id_supplier', 'inner');
-		$this->db->join('type_gudang', 'type_gudang.id = detail_supplier_jenis.id_jenis', 'inner');
+		$this->db->join('supplier', 'supplier.id_supplier = detail_supplier_jenis.id_supplier', 'inner');
+		$this->db->join('type_gudang', 'type_gudang.id_type_gudang = detail_supplier_jenis.id_jenis', 'inner');
 	}
 
 }

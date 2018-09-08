@@ -21,17 +21,17 @@ class PersediaanModel extends CI_Model {
 	}
 
 	public function set($data) {
+		$this->db->set('id_persediaan', $this->newId());
 		return $this->db->insert('persediaan', $data);
 	}
 
 	public function put($data, $id) {
-		$this->db->where('id', $id);
-
+		$this->db->where('id_persediaan', $id);
 		return $this->db->update('persediaan', $data);
 	}
 
 	public function remove($id) {
-		$this->db->where('id', $id);
+		$this->db->where('id_persediaan', $id);
 		return $this->db->delete('persediaan');
 	}
 
@@ -46,6 +46,12 @@ class PersediaanModel extends CI_Model {
 		$this->db->join('kandang', 'detail_kandang_vaksin.id_kandang = kandang.id', 'inner');
 
 		return $this->db->get('vaksin')->result();
+	}
+
+	public function newId() {
+		$this->db->select('function_id_persediaan() as id');
+		$data = $this->db->get()->row();
+		return $data->id;
 	}
 
 }

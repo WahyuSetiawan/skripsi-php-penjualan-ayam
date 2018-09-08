@@ -63,6 +63,7 @@
  * @property TypeGudangModel $TypeGudangModel 
  * @property DetailPembelianGudang $DetailPembelianGudang 
  * @property DetailPengeluaranGudangModel $DetailPengeluaranGudangModel 
+ * @property ViewTransaksiAll $ViewTransaksiAll 
  */
 class CI_Controller {
 	
@@ -101,6 +102,7 @@ class CI_Controller {
  * @property TypeGudangModel $TypeGudangModel 
  * @property DetailPembelianGudang $DetailPembelianGudang 
  * @property DetailPengeluaranGudangModel $DetailPengeluaranGudangModel 
+ * @property ViewTransaksiAll $ViewTransaksiAll ViewTransaksiAll
  */
 class CI_Model {
 	

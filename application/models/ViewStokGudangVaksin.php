@@ -17,9 +17,11 @@ class ViewStokGudangVaksin extends CI_Model {
 	}
 
 	public function once($id_vaksin) {
-		$this->db->where('id', $id_vaksin);
+		$this->db->where('id_persediaan', $id_vaksin);
 
-		return $this->db->get('view_stok_gudang_vaksin')->row();
+		$data =  $this->db->get('view_stok_gudang_vaksin')->row();
+		
+		return $data;
 	}
 
 	public function countAll() {
